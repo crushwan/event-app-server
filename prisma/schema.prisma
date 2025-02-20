@@ -24,13 +24,17 @@ model User {
 }
 
 model Event {
-  id        String  @id @default(uuid())
-  title     String  @db.VarChar(255) // Title of the event
-  location  String  @db.VarChar(255) // Location
-  startDate String // Start date
-  endDate   String // End date
-  status    String? @db.VarChar(10) // "Ongoing" | "Completed" (Optional)
+  id        String    @id @default(uuid())
+  title     String    @db.VarChar(255) // Title of the event
+  location  String    @db.VarChar(255) // Location
+  // startDate String 
+  // endDate   String 
+  startDate DateTime
+  endDate   DateTime
+  status    String?   @db.VarChar(10) // "Ongoing" | "Completed" (Optional)
   posterUrl String? // Store Supabase URL
   createdBy String
-  user      User    @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }

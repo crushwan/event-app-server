@@ -7,13 +7,15 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { EventService } from './event/event.service';
 import { EventController } from './event/event.controller';
 import { PrismaService } from "prisma/Prisma.service";
+import { AuthModule } from "./auth/auth.module";
+import { EventModule } from "./event/event.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    JwtModule.register({ secret: process.env.JWT_SECRET, signOptions: { expiresIn: '1h' } }),
+    AuthModule,
+    EventModule,
   ],
-  controllers: [AuthController, EventController],
-  providers: [PrismaService, AuthService, EventService, JwtAuthGuard],
+  providers: [PrismaService],
 })
-export class AppModule {}
+export class AppModule { }

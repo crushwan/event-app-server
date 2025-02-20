@@ -5,11 +5,11 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserService } from '../user/user.service';
 import { PrismaModule } from './../../prisma/Prisma.module';
+import { JwtAuthGuard } from "./jwt-auth.guard";
 
 
 @Module({
   imports: [
-    // PrismaModule,
     ConfigModule.forRoot(),
     JwtModule.registerAsync({
       imports: [ConfigModule],
@@ -20,8 +20,8 @@ import { PrismaModule } from './../../prisma/Prisma.module';
       }),
     }),
   ],
-  providers: [AuthService, UserService], // Include UserService
+  providers: [AuthService, UserService, JwtAuthGuard], // Include UserService
   controllers: [AuthController],
-  exports: [AuthService, JwtModule]
+  exports: [AuthService, JwtModule, JwtAuthGuard]
 })
 export class AuthModule { }

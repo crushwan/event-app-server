@@ -19,3 +19,7 @@ ALTER TABLE "User" ADD COLUMN     "name" TEXT NOT NULL;
 
 -- AddForeignKey
 ALTER TABLE "Event" ADD CONSTRAINT "Event_createdBy_fkey" FOREIGN KEY ("createdBy") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE "Event" ALTER COLUMN "startDate" TYPE TIMESTAMP USING "startDate"::timestamp without time zone;
+ALTER TABLE "Event" ALTER COLUMN "endDate" TYPE TIMESTAMP USING "endDate"::timestamp without time zone;
+
